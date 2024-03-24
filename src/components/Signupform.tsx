@@ -4,8 +4,17 @@ import { useState } from "react";
 
 const Signupform = () => {
   const [showpassword, setShowpassword] = useState(false);
-  const handleSignupform = (e: any) => {
+  const [user, setUser] = useState({
+    name: "",
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const handleSignupform = async (e: any) => {
     e.preventDefault();
+    console.log(user);
   };
   return (
     <form
@@ -20,6 +29,8 @@ const Signupform = () => {
           type="text"
           id="name"
           placeholder="Full Name"
+          value={user.name}
+          onChange={(e) => setUser({ ...user, name: e.target.value })}
           className="w-full border border-rose-700 rounded-md p-2"
           required
         />
@@ -31,8 +42,11 @@ const Signupform = () => {
         <input
           type="text"
           id="username"
-          placeholder="User name"
+          value={user.username}
+          onChange={(e) => setUser({ ...user, username: e.target.value })}
           className="w-full border border-rose-700 rounded-md p-2"
+          placeholder="User name"
+          autoComplete="username"
           required
         />
       </label>
@@ -43,8 +57,10 @@ const Signupform = () => {
         <input
           type="email"
           id="email"
-          placeholder="Email"
+          value={user.email}
+          onChange={(e) => setUser({ ...user, email: e.target.value })}
           className="w-full border border-rose-700 rounded-md p-2"
+          placeholder="Email"
           required
         />
       </label>
@@ -55,8 +71,11 @@ const Signupform = () => {
         <input
           type={showpassword ? "text" : "password"}
           id="password"
-          placeholder="Enter New Password"
+          value={user.password}
+          onChange={(e) => setUser({ ...user, password: e.target.value })}
           className="w-full border border-rose-700 rounded-md p-2"
+          placeholder="Enter New Password"
+          autoComplete="new-password"
           required
         />
       </label>
@@ -67,8 +86,13 @@ const Signupform = () => {
         <input
           type={showpassword ? "text" : "password"}
           id="confirmpassword"
-          placeholder="Confirm Password"
+          value={user.confirmPassword}
+          onChange={(e) =>
+            setUser({ ...user, confirmPassword: e.target.value })
+          }
           className="w-full border border-rose-700 rounded-md p-2"
+          placeholder="Confirm Password"
+          autoComplete="new-password"
           required
         />
       </label>
