@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const SignUpPage = () => {
   return (
-    <main className="max-w-3xl mx-auto bg-emerald-300">
+    <main className="max-w-3xl mx-auto bg-emerald-300 mt-5 rounded-md">
       <div className="py-5">
         <h1 className="font-bold text-3xl underline text-center">Sign Up</h1>
         <Signupform />
