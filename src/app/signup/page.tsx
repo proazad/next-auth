@@ -6,7 +6,7 @@ const SignUpPage = () => {
       <div className="py-5">
         <h1 className="font-bold text-3xl underline text-center">Sign Up</h1>
         <Signupform />
-        <p className="text-center">
+        <p className="text-center my-5">
           Already Have an Account ? Please-
           <Link href={"/login"} className="underline text-blue-700">
             Login

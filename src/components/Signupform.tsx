@@ -1,9 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const Signupform = () => {
+  const router = useRouter();
   const [showpassword, setShowpassword] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const [user, setUser] = useState({
     name: "",
     username: "",
@@ -11,11 +14,25 @@ const Signupform = () => {
     password: "",
     confirmPassword: "",
   });
+  useEffect(() => {
+    if (
+      user.name.length > 0 &&
+      user.username.length > 0 &&
+      user.email.length > 0 &&
+      user.password.length > 0 &&
+      user.confirmPassword.length > 0
+    ) {
+      setButtonDisabled(false);
+    } else {
+      setButtonDisabled(true);
+    }
+  }, [user]);
 
   const handleSignupform = async (e: any) => {
     e.preventDefault();
     console.log(user);
   };
+
   return (
     <form
       onSubmit={handleSignupform}
@@ -108,9 +125,22 @@ const Signupform = () => {
           Show Password!
         </label>
       </label>
-      <button type="submit" className="bg-white w-fit p-2 rounded-md">
-        Submit
-      </button>
+      {buttonDisabled ? (
+        <button
+          type="submit"
+          className="bg-slate-400 cursor-none text-white w-fit p-2 rounded-md"
+          disabled
+        >
+          No Sign Up
+        </button>
+      ) : (
+        <button
+          type="submit"
+          className="bg-blue-600 text-white w-fit p-2 rounded-md"
+        >
+          Sign Up
+        </button>
+      )}
     </form>
   );
 };
