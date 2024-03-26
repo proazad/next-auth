@@ -1,12 +1,15 @@
 "use client";
 
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const Signupform = () => {
   const router = useRouter();
   const [showpassword, setShowpassword] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({
     name: "",
     username: "",
@@ -15,7 +18,9 @@ const Signupform = () => {
     confirmPassword: "",
   });
   useEffect(() => {
-    if (
+    if (user.password !== user.confirmPassword) {
+      setButtonDisabled(true);
+    } else if (
       user.name.length > 0 &&
       user.username.length > 0 &&
       user.email.length > 0 &&
@@ -30,7 +35,17 @@ const Signupform = () => {
 
   const handleSignupform = async (e: any) => {
     e.preventDefault();
-    console.log(user);
+    try {
+      const res = await axios.post("/api/users/signup", user);
+      console.log("Signup Successfull", res.data);
+      toast.success("User Created Successfully");
+      router.push("/login");
+    } catch (error: any) {
+      console.log("Sign up failed", error.message);
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -38,6 +53,9 @@ const Signupform = () => {
       onSubmit={handleSignupform}
       className="w-6/12 mx-auto flex justify-start flex-col mt-5"
     >
+      <h1 className="font-bold text-3xl underline text-center">
+        {loading ? "Processing" : "Sign Up"}
+      </h1>
       <label className="mb-2">
         <label htmlFor="name" className="pr-2 block">
           Full Name

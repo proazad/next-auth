@@ -5,7 +5,6 @@ const LogInPage = () => {
   return (
     <main className="max-w-3xl mx-auto bg-emerald-300 mt-5 rounded-md">
       <div className="py-5">
-        <h1 className="font-bold text-3xl underline text-center">Login</h1>
         <LoginForm />
         <p className="text-center">
           New Here ? Please-
